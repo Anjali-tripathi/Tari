@@ -1,0 +1,6 @@
+.order-card { margin-bottom: 12px; padding: 16px; }
+.order-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.order-items { font-size: 13px; color: #666; margin-bottom: 12px; }
+.order-footer { display: flex; justify-content: space-between; align-items: center; }
+.order-actions { display: flex; gap: 8px; }
+.empty-state { text-align: center; padding: 48px; }

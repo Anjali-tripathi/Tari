@@ -1,0 +1,54 @@
+<div class="page-container">
+  <h1 class="page-title">Your yummy meal🛒</h1>
+
+  <ng-container *ngIf="(cart$ | async) as items">
+    <div *ngIf="items.length; else emptyCart">
+      <div class="cart-layout">
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of items">
+            <img [src]="item.product.image" [alt]="item.product.name" class="item-img" title="item.product.name">
+            <div class="item-info">
+              <h3>{{ item.product.name }}</h3>
+              <p class="item-price">₹{{ item.product.price }}</p>
+            </div>
+            <div class="qty-controls">
+              <button mat-icon-button (click)="updateQty(item, -1)"><mat-icon>remove</mat-icon></button>
+              <span class="qty">{{ item.quantity }}</span>
+              <button mat-icon-button (click)="updateQty(item, 1)"><mat-icon>add</mat-icon></button>
+            </div>
+            <span class="item-total">₹{{ item.product.price * item.quantity }}</span>
+            <button mat-icon-button color="warn" (click)="remove(item.product._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="cart-summary card">
+          <h3>Order Summary</h3>
+          <mat-divider class="mt-1 mb-2"></mat-divider>
+          <div class="summary-row"><span>Subtotal</span><span>₹{{ getTotal() }}</span></div>
+          <div class="summary-row"><span>Delivery Fee</span><span class="text-muted">₹40</span></div>
+          <div class="summary-row"><span>Taxes (5%)</span><span>₹{{ getTotal() * 0.05 | number:'1.0-0' }}</span></div>
+          <mat-divider class="mt-1 mb-2"></mat-divider>
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>₹{{ getTotal() + 40 + getTotal() * 0.05 | number:'1.0-0' }}</span>
+          </div>
+          <button mat-raised-button color="primary" class="w-100 mt-2" (click)="checkout()">
+            Proceed to Checkout →
+          </button>
+          <button mat-button class="w-100 mt-1" routerLink="/menu">+ Add More Items</button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #emptyCart>
+      <div class="empty-state">
+        <div class="empty-icon">🛒</div>
+        <h2>Your cart is empty</h2>
+        <p>Add some delicious items from our menu!</p>
+        <button mat-raised-button color="brown" routerLink="/menu" class="mt-2">Browse Menu</button>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

@@ -1,0 +1,59 @@
+<div class="page-container">
+  <div class="tracking-header">
+    <h1>Track Your Order 📍</h1>
+    <span class="order-id">Order #{{ order?._id | slice:0:8 }}</span>
+  </div>
+
+  <div class="tracking-layout">
+    <!-- Map -->
+    <div class="map-container">
+      <google-map
+        width="100%"
+        height="100%"
+        [center]="mapCenter"
+        [zoom]="14"
+        [options]="mapOptions">
+        <map-marker *ngIf="deliveryLocation" [position]="deliveryLocation" [title]="'Delivery Partner'"></map-marker>
+        <map-marker *ngIf="destinationLocation" [position]="destinationLocation" [title]="'Your Location'"></map-marker>
+      </google-map>
+    </div>
+
+    <!-- Status Panel -->
+    <div class="status-panel">
+      <div class="status-card card">
+        <h3>Order Status</h3>
+        <div class="steps">
+          <div class="step" *ngFor="let step of statusSteps; let i = index"
+            [class.done]="getStepIndex() > i"
+            [class.active]="getStepIndex() === i">
+            <div class="step-icon">{{ step.icon }}</div>
+            <div class="step-label">{{ step.label }}</div>
+            <div class="step-line" *ngIf="i < statusSteps.length - 1"></div>
+          </div>
+        </div>
+
+        <div class="eta-badge" *ngIf="orderStatus !== 'delivered' && orderStatus !== 'cancelled'">
+          ⏱ Estimated: {{ getEta() }} mins
+        </div>
+
+        <div class="delivered-badge" *ngIf="orderStatus === 'delivered'">
+          🎉 Order Delivered! Enjoy your meal!
+        </div>
+        <div class="cancelled-badge" *ngIf="orderStatus === 'cancelled'">
+          ❌ Order Cancelled
+        </div>
+      </div>
+
+      <!-- Order Items -->
+      <div class="items-card card mt-2" *ngIf="order">
+        <h3>Items Ordered</h3>
+        <div class="order-item" *ngFor="let item of order.items">
+          <span>{{ item.name }} × {{ item.quantity }}</span>
+          <span>₹{{ item.price * item.quantity }}</span>
+        </div>
+        <mat-divider class="mt-1 mb-2"></mat-divider>
+        <div class="order-total"><strong>Total: ₹{{ order.totalAmount }}</strong></div>
+      </div>
+    </div>
+  </div>
+</div>

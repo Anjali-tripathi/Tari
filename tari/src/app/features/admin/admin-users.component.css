@@ -1,0 +1,6 @@
+.page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; }
+.search-field { width: 100%; max-width: 400px; margin-bottom: 16px; }
+.table-container { overflow: auto; border-radius: 8px; }
+table { width: 100%; }
+.user-cell { display: flex; align-items: center; gap: 10px; }
+.user-avatar { width: 32px; height: 32px; border-radius: 50%; background: #e65100; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; }

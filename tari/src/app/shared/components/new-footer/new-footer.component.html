@@ -1,0 +1,168 @@
+<footer class="footer">
+  <div class="footer-container">
+    
+    <!-- Logo & About Section -->
+    <div class="footer-section about-section">
+      <div class="logo">
+        <img src="assets/images/logo.jpg" alt="Tari Logo" class="footer-logo">
+        <h3>Tari</h3>
+      </div>
+      <p class="about-text">
+        Welcome to Tari -   We don’t serve too much
+       We just serve what’s worth remembering .
+      </p>
+
+
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="footer-section quick-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/about">About Us</a></li>
+        <li><a routerLink="/contact">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms & Conditions</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="footer-section contact-section">
+      <h4>Contact Us</h4>
+      <div class="contact-item">
+        <i class="fa fa-envelope"></i>
+        <a href="mailto:{{ contactInfo.email }}">{{ contactInfo.email }}</a>
+      </div>
+      <div class="contact-item">
+        <i class="fa fa-phone"></i>
+        <a href="tel:{{ contactInfo.phone }}">{{ contactInfo.phone }}</a>
+      </div>
+      <div class="contact-item">
+        <i class="fa fa-map-marker-alt"></i>
+        <p>{{ contactInfo.address }}</p>
+      </div>
+    </div>
+
+    <!-- Social Media Section -->
+    <div class="footer-section social-section">
+      <h4>Follow Us</h4>
+      <div class="social-links">
+        <a *ngFor="let social of socialLinks" 
+           [href]="social.url" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="social-link"
+           [title]="social.label">
+          <i [ngClass]="social.icon"></i>
+        </a>
+      </div>
+      <div class="rating-section">
+        <h5>Rate Us</h5>
+        <div class="stars">
+          <span class="star" *ngFor="let i of [1,2,3,4,5]">★</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Feedback/Message Section -->
+  <div class="feedback-section">
+    <h3 class="feedback-title">We Value Your Feedback</h3>
+    <p class="feedback-subtitle">Tell us about your experience or suggest improvements</p>
+    
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmitFeedback()" class="feedback-form">
+      
+      <!-- Success Message -->
+      <div *ngIf="feedbackSuccess" class="alert alert-success">
+        <i class="fas fa-check-circle"></i> Thank you! Your feedback has been sent successfully.
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name"
+            placeholder="Your name"
+            class="form-input"
+            [class.is-invalid]="feedbackSubmitted && name?.invalid">
+          <span *ngIf="feedbackSubmitted && name?.invalid" class="error-message">
+            <span *ngIf="name?.errors?.['required']">Name is required</span>
+            <span *ngIf="name?.errors?.['minlength']">Name must be at least 2 characters</span>
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="your@email.com"
+            class="form-input"
+            [class.is-invalid]="feedbackSubmitted && email?.invalid">
+          <span *ngIf="feedbackSubmitted && email?.invalid" class="error-message">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject *</label>
+        <select 
+          id="subject" 
+          formControlName="subject"
+          class="form-input"
+          [class.is-invalid]="feedbackSubmitted && subject?.invalid">
+          <option value="" disabled selected>Select a subject</option>
+          <option value="feedback">General Feedback</option>
+          <option value="complaint">Complaint</option>
+          <option value="suggestion">Suggestion</option>
+          <option value="bug">Bug Report</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        <span *ngIf="feedbackSubmitted && subject?.invalid" class="error-message">
+          Subject is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Your Message *</label>
+        <textarea 
+          id="message" 
+          formControlName="message"
+          placeholder="Share your feedback, concerns, or suggestions with us..."
+          class="form-textarea"
+          rows="4"
+          [class.is-invalid]="feedbackSubmitted && message?.invalid"></textarea>
+        <span *ngIf="feedbackSubmitted && message?.invalid" class="error-message">
+          <span *ngIf="message?.errors?.['required']">Message is required</span>
+          <span *ngIf="message?.errors?.['minlength']">Message must be at least 10 characters</span>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="suggestions">Any Changes or Improvements? (Optional)</label>
+        <textarea 
+          id="suggestions" 
+          formControlName="suggestions"
+          placeholder="Tell us what changes you'd like to see or any improvements we can make..."
+          class="form-textarea"
+          rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <i class="fas fa-paper-plane"></i> Send Feedback
+      </button>
+    </form>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <p>&copy; {{ currentYear }} Tari. All rights reserved. | Designed with <span class="heart">❤</span> by Arc</p>
+  </div>
+</footer>

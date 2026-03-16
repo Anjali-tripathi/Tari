@@ -1,0 +1,28 @@
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Fast. Fresh. <span class="accent">TARI</span></h1>
+    <p class="hero-sub">Welcome to Tari -   <br> We don’t serve too much
+       We just serve what’s worth remembering .</p>
+    <div class="hero-actions">
+      <button mat-raised-button  class="cta-btn" (click)="onOrderNow()">🛒 Order Now</button>
+      <button mat-stroked-button routerLink="/menu">Browse Menu</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><strong>5+</strong><span>Dishes</span></div>
+      <div class="stat"><strong>30min</strong><span>Avg. Delivery</span></div>
+      <div class="stat"><strong>4.8★</strong><span>Rating</span></div>
+    </div>
+  </div>
+ 
+</div>
+
+<div class="page-container">
+  <h2 class="section-heading">Why Choose TARI?</h2>
+  <div class="features-grid">
+    <div class="feature" *ngFor="let f of features">
+        <span class="feat-icon">{{ f.icon }}</span>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.desc }}</p>
+    </div>
+  </div>
+</div>

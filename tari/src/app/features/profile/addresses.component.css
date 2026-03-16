@@ -1,0 +1,11 @@
+.page-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; }
+.addresses-layout { display: grid; grid-template-columns: 1fr 360px; gap: 16px; }
+.address-row { display: flex; justify-content: space-between; align-items: center; }
+.address-actions { display: flex; gap: 8px; }
+.address-form { padding: 12px; }
+.form-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+.addresses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .address-card { padding: 16px !important; }
+    .addr-header { display: flex; justify-content: space-between; align-items: center; }
+    .address-form { padding-top: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }

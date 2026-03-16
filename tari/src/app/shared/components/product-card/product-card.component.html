@@ -1,0 +1,23 @@
+<mat-card class="product-card">
+  <img mat-card-image [src]="product.image" [alt]="product.name" class="product-img" title="product name {{ product.name }}">
+  <mat-card-content>
+    <div class="product-header">
+      <h3 class="product-name">{{ product.name }}</h3>
+      <span class="product-price">₹{{ product.price }}</span>
+    </div>
+    <p class="product-desc">{{ product.description }}</p>
+    <div class="product-meta">
+      <span class="chip" [class.chip-confirmed]="product.availability">
+        {{ product.availability ? 'Available' : 'Unavailable' }}
+      </span>
+      <span class="meta-info">⭐ {{ product.rating | number:'1.1-1' }} · ⏱ {{ product.preparationTime }}m</span>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" class="w-100"
+      [disabled]="!product.availability"
+      (click)="addToCart.emit(product)">
+      <mat-icon>add_shopping_cart</mat-icon> Add to Cart
+    </button>
+  </mat-card-actions>
+</mat-card>

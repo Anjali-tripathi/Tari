@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Welcome Back 👋</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field class="w-100">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email">
+      <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <mat-label>Password</mat-label>
+      <input matInput [type]="showPass ? 'text' : 'password'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="showPass = !showPass" type="button">
+        <mat-icon>{{ showPass ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="form.get('password')?.hasError('required')">Password is required</mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid || loading" (click)="login()">
+    {{ loading ? 'Logging in...' : 'Login' }}
+  </button>
+</mat-dialog-actions>
+<div class="register-link">
+  <span>Don't have an account? </span>
+  <button mat-button color="primary" (click)="openRegister()">Register</button>
+</div>

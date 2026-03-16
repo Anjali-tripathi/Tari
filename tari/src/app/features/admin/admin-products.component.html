@@ -1,0 +1,56 @@
+<h2 class="page-title">Product Management</h2>
+
+<div class="products-layout">
+  <!-- Product List -->
+  <div class="products-list">
+    <div class="product-row" *ngFor="let p of products">
+      <img [src]="p.image" class="prod-thumb" alt="products">
+      <div class="prod-info">
+        <strong>{{ p.name }}</strong>
+        <p class="text-muted">{{ p.category }} · ₹{{ p.price }}</p>
+      </div>
+      <div class="prod-actions">
+        <mat-slide-toggle [checked]="p.availability" (change)="toggleAvailability(p)"></mat-slide-toggle>
+        <button mat-icon-button color="primary" (click)="editProduct(p)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deleteProduct(p._id)"><mat-icon>delete</mat-icon></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Form -->
+  <div class="product-form card">
+    <h3>{{ editing ? 'Edit Product' : 'Add New Product' }}</h3>
+    <form [formGroup]="form">
+      <mat-form-field class="w-100">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="2"></textarea>
+      </mat-form-field>
+      <div class="form-row">
+        <mat-form-field>
+          <mat-label>Price (₹)</mat-label>
+          <input matInput type="number" formControlName="price">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="category">
+        </mat-form-field>
+      </div>
+      <mat-form-field class="w-100">
+        <mat-label>Image URL</mat-label>
+        <input matInput formControlName="image">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Preparation Time (mins)</mat-label>
+        <input matInput type="number" formControlName="preparationTime">
+      </mat-form-field>
+      <div class="form-actions">
+        <button mat-button type="button" *ngIf="editing" (click)="cancelEdit()">Cancel</button>
+        <button mat-raised-button type="button" color="primary" [disabled]="form.invalid || saving" (click)="saveProduct()">{{ saving ? 'Saving...' : (editing ? 'Update' : 'Add Product') }}</button>
+      </div>
+    </form>
+  </div>
+</div>

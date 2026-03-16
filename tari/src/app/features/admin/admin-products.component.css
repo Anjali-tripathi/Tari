@@ -1,0 +1,12 @@
+.page-title { margin: 0 0 12px 0; }
+.products-layout { display:flex; gap:20px; align-items:flex-start; }
+.products-list { flex:1; max-height:70vh; overflow:auto; }
+.product-row { display:flex; align-items:center; gap:12px; padding:8px; border-bottom:1px solid rgba(0,0,0,0.06); }
+.prod-thumb { width:72px; height:72px; object-fit:cover; border-radius:6px; }
+.prod-info { flex:1; }
+.prod-actions { display:flex; align-items:center; gap:8px; }
+.product-form { width:360px; padding:12px; }
+.product-form .form-row { display:flex; gap:8px; }
+.w-100 { width:100%; }
+.text-muted { color: rgba(0,0,0,0.54); font-size:0.9em; }
+.form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:12px; }

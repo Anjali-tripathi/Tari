@@ -1,0 +1,55 @@
+<h2 class="page-title">Dashboard</h2>
+
+    <div class="stats-grid" *ngIf="stats">
+      <mat-card class="stat-card">
+        <div class="stat-icon orange">📦</div>
+        <div>
+          <p class="stat-label">Total Orders</p>
+          <h3 class="stat-value">{{ stats.totalOrders }}</h3>
+        </div>
+      </mat-card>
+      <mat-card class="stat-card">
+        <div class="stat-icon green">₹</div>
+        <div>
+          <p class="stat-label">Total Revenue</p>
+          <h3 class="stat-value">₹{{ stats.totalRevenue | number }}</h3>
+        </div>
+      </mat-card>
+      <mat-card class="stat-card">
+        <div class="stat-icon blue">👥</div>
+        <div>
+          <p class="stat-label">Total Users</p>
+          <h3 class="stat-value">{{ stats.totalUsers }}</h3>
+        </div>
+      </mat-card>
+      <mat-card class="stat-card">
+        <div class="stat-icon red">🛵</div>
+        <div>
+          <p class="stat-label">Active Deliveries</p>
+          <h3 class="stat-value">{{ stats.activeDeliveries }}</h3>
+        </div>
+      </mat-card>
+      <mat-card class="stat-card">
+        <div class="stat-icon orange">📋</div>
+        <div>
+          <p class="stat-label">Orders Today</p>
+          <h3 class="stat-value">{{ stats.ordersToday }}</h3>
+        </div>
+      </mat-card>
+      <mat-card class="stat-card">
+        <div class="stat-icon green">💰</div>
+        <div>
+          <p class="stat-label">Revenue Today</p>
+          <h3 class="stat-value">₹{{ stats.revenueToday | number }}</h3>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="quick-links mt-3">
+      <h3>Quick Actions</h3>
+      <div class="links-row">
+        <button mat-raised-button color="primary" routerLink="../orders">View All Orders</button>
+        <button mat-raised-button routerLink="../products">Manage Products</button>
+        <button mat-raised-button routerLink="../users">Manage Users</button>
+      </div>
+    </div>

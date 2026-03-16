@@ -1,0 +1,29 @@
+<div class="orders-list mt-2">
+  <div *ngIf="!orders.length" class="empty-state">
+    <p>No orders yet. Go order something delicious! 🍕</p>
+    <button mat-raised-button color="primary" routerLink="/menu">Order Now</button>
+  </div>
+  <mat-card class="order-card" *ngFor="let order of orders">
+    <div class="order-header">
+      <div>
+        <strong>#{{ order._id | slice:0:8 }}</strong>
+        <span class="text-muted ml-1">{{ order.createdAt | timeAgo }}</span>
+      </div>
+      <span class="chip" [class]="'chip-' + order.orderStatus">{{ order.orderStatus | titlecase }}</span>
+    </div>
+    <div class="order-items">
+      <span *ngFor="let item of order.items; let last = last">
+        {{ item.name }} x{{ item.quantity }}{{ !last ? ', ' : '' }}
+      </span>
+    </div>
+    <div class="order-footer">
+      <strong>₹{{ order.totalAmount }}</strong>
+      <div class="order-actions">
+        <button mat-button color="primary" (click)="trackOrder(order._id)" *ngIf="order.orderStatus !== 'delivered' && order.orderStatus !== 'cancelled'">
+          Track
+        </button>
+        <button mat-button (click)="reorder(order)">Reorder</button>
+      </div>
+    </div>
+  </mat-card>
+</div>

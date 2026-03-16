@@ -1,0 +1,52 @@
+.page-title { 
+    font-size: 2rem; font-weight: 700; margin-bottom: 24px; }
+.cart-layout { 
+    display: grid; grid-template-columns: 1fr 320px; gap: 24px; }
+@media(max-width: 768px) { .cart-layout { grid-template-columns: 1fr; } }
+.cart-item {
+     display: flex; align-items: center; gap: 12px; background: white; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.item-img { 
+    width: 64px; height: 64px; border-radius: 8px; object-fit: cover; }
+.item-info { 
+    flex: 1; }
+.item-info h3 {
+     font-size: 0.95rem; font-weight: 600; }
+.item-price { 
+    color: #e65100; font-size: 13px; }
+.qty-controls { 
+    display: flex; align-items: center; gap: 4px; }
+.qty { 
+    font-weight: 700; min-width: 24px; text-align: center; }
+.item-total { 
+    font-weight: 700; color: #212121; min-width: 60px; text-align: right; }
+.summary-row {
+     display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+.summary-row.total { 
+    font-size: 1.1rem; font-weight: 700; }
+.empty-state {
+     text-align: center; padding: 80px 20px; 
+    }
+    .empty-state button{
+        background-color: #6C3428;
+    }
+.empty-icon { 
+    font-size: 5rem; margin-bottom: 16px; }
+
+ .page-container {
+        background-image: url('assets/images/nbg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        position: relative;
+        z-index: 1;
+    }
+    .page-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(27, 27, 26, 0.4);
+        z-index: -1;
+    }

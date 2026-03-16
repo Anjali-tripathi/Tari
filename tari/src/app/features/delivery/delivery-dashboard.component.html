@@ -1,0 +1,40 @@
+<div class="page-container">
+  <h1 class="page-title">Delivery Dashboard 🛵</h1>
+
+  <div class="delivery-layout">
+    <!-- Orders List -->
+    <div class="orders-section">
+      <h3>Assigned Orders</h3>
+      <div *ngIf="!assignedOrders.length" class="empty-state">
+        <p>No orders assigned yet.</p>
+      </div>
+
+      <mat-card class="order-card" *ngFor="let order of assignedOrders" [class.active-order]="activeOrder?._id === order._id">
+        <div class="order-header">
+          <strong>#{{ order._id | slice:0:8 }}</strong>
+          <span class="chip" [class]="'chip-' + order.orderStatus">{{ order.orderStatus | titlecase }}</span>
+        </div>
+        <div class="order-address">📍 {{ order.deliveryAddress.line1 }}, {{ order.deliveryAddress.city }}</div>
+        <div class="order-items-summary">{{ order.items.length }} item(s) · ₹{{ order.totalAmount }}</div>
+        <div class="order-actions">
+          <button mat-raised-button color="primary" *ngIf="!isTracking && order.orderStatus === 'picked_up'" (click)="startDelivery(order)">🚴 Start Delivery</button>
+          <div class="status-buttons" *ngIf="order.orderStatus !== 'delivered'">
+            <button mat-stroked-button (click)="updateStatus(order._id, 'preparing')" *ngIf="order.orderStatus === 'confirmed'">Mark Preparing</button>
+            <button mat-stroked-button (click)="updateStatus(order._id, 'picked_up')" *ngIf="order.orderStatus === 'preparing'">Mark Picked Up</button>
+            <button mat-raised-button color="accent" (click)="updateStatus(order._id, 'on_the_way')" *ngIf="order.orderStatus === 'picked_up' && isTracking">Mark On The Way</button>
+            <button mat-raised-button color="primary" (click)="markDelivered(order._id)" *ngIf="order.orderStatus === 'on_the_way'">✅ Mark Delivered</button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <!-- Live Map -->
+    <div class="map-section">
+      <h3>Your Location</h3>
+      <div class="tracking-status" [class.active]="isTracking">{{ isTracking ? '🟢 Broadcasting Live Location' : '⚪ Location Sharing Off' }}</div>
+      <google-map width="100%" height="360px" [center]="myLocation || defaultCenter" [zoom]="14">
+        <map-marker *ngIf="myLocation" [position]="myLocation" title="You"></map-marker>
+      </google-map>
+    </div>
+  </div>
+</div>

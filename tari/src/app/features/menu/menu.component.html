@@ -1,0 +1,35 @@
+<div class="page-container">
+      <h1 class="page-title">Our Menu 🍽️</h1>
+
+      <div class="menu-controls">
+        <mat-form-field class="search-field">
+          <mat-label>Search dishes...</mat-label>
+          <input matInput [formControl]="searchCtrl" placeholder="search menu..">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="categories">
+        <button mat-stroked-button class="cat-btn"
+          [class.active]="!selectedCategory"
+          (click)="selectCategory(null)">All</button>
+        <button mat-stroked-button class="cat-btn"
+          *ngFor="let c of categories"
+          [class.active]="selectedCategory === c"
+          (click)="selectCategory(c)">{{ c }}</button>
+      </div>
+
+      <div class="products-grid" *ngIf="products.length; else noItems">
+        <app-product-card
+          *ngFor="let p of products"
+          [product]="p"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      </div>
+
+      <ng-template #noItems>
+        <div class="empty-state">
+          <p>😕 No dishes found. Try a different search or category.</p>
+        </div>
+      </ng-template>
+    </div> 

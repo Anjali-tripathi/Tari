@@ -1,0 +1,46 @@
+<mat-toolbar class="navbar">
+      <div class="navbar-inner">
+        <a routerLink="/" class="logo">
+          <img src="assets/images/logo.jpg" alt="logo" />
+        </a>
+
+        <nav class="nav-links hide-mobile">
+          <a routerLink="/menu" routerLinkActive="active" mat-button>Menu</a>
+          <a routerLink="/about" routerLinkActive="active" mat-button>About</a>
+          <a routerLink="/newArrival" routerLinkActive="active" mat-button>New Arrival</a>
+          <a routerLink="/contact" routerLinkActive="active" mat-button>Contact</a>
+         <a routerLink="/cart" mat-button>
+            <mat-icon [matBadge]="cartCount$ | async" matBadgeColor="warn"
+              [matBadgeHidden]="(cartCount$ | async) === 0">shopping_cart</mat-icon>
+          </a>
+        </nav>
+
+        <div class="nav-actions">
+          <ng-container *ngIf="currentUser$ | async as user; else loginBtn">
+            <button mat-icon-button [matMenuTriggerFor]="userMenu">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #userMenu>
+              <div class="user-info-menu">
+                <strong>{{ user.name }}</strong>
+                <small>{{ user.email }}</small>
+              </div>
+              <mat-divider></mat-divider>
+              <a mat-menu-item routerLink="/profile"><mat-icon>person</mat-icon> Profile</a>
+              <a mat-menu-item routerLink="/profile/orders"><mat-icon>receipt</mat-icon> My Orders</a>
+              <a mat-menu-item routerLink="/admin" *ngIf="user.role === 'admin'">
+                <mat-icon>admin_panel_settings</mat-icon> Admin Panel
+              </a>
+              <a mat-menu-item routerLink="/delivery" *ngIf="user.role === 'delivery'">
+                <mat-icon>delivery_dining</mat-icon> Delivery Panel
+              </a>
+              <mat-divider></mat-divider>
+              <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+            </mat-menu>
+          </ng-container>
+          <ng-template #loginBtn>
+            <button mat-stroked-button routerLink="/menu">Order Now</button>
+          </ng-template>
+        </div>
+      </div>
+    </mat-toolbar>

@@ -1,0 +1,55 @@
+ <h2 class="page-title">Order Management</h2>
+
+    <mat-form-field class="search-field">
+      <mat-label>Search orders...</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Order ID, status...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div class="table-container mat-elevation-z2">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Order ID</th>
+          <td mat-cell *matCellDef="let o">{{ o._id | slice:0:8 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef>User</th>
+          <td mat-cell *matCellDef="let o">{{ o.userId }}</td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+          <td mat-cell *matCellDef="let o">₹{{ o.totalAmount }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+          <td mat-cell *matCellDef="let o">
+            <span class="chip" [class]="'chip-' + o.orderStatus">{{ o.orderStatus | titlecase }}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="payment">
+          <th mat-header-cell *matHeaderCellDef>Payment</th>
+          <td mat-cell *matCellDef="let o">{{ o.paymentMethod | uppercase }}</td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let o">{{ o.createdAt | date:'short' }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let o">
+            <mat-select placeholder="Update Status" class="status-select" (selectionChange)="updateStatus(o._id, $event.value)">
+              <mat-option value="confirmed">Confirmed</mat-option>
+              <mat-option value="preparing">Preparing</mat-option>
+              <mat-option value="picked_up">Picked Up</mat-option>
+              <mat-option value="on_the_way">On The Way</mat-option>
+              <mat-option value="delivered">Delivered</mat-option>
+              <mat-option value="cancelled">Cancelled</mat-option>
+            </mat-select>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+    </div>

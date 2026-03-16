@@ -1,0 +1,8 @@
+
+    .page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; }
+    .search-field { width: 100%; max-width: 400px; margin-bottom: 16px; }
+    .table-container { overflow: auto; border-radius: 8px; }
+    table { width: 100%; }
+    .status-select { font-size: 12px; }
+    th.mat-header-cell { background: #fafafa; font-weight: 600; }
+  

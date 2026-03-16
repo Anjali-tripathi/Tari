@@ -1,0 +1,96 @@
+<div class="page-container">
+  <h1 class="page-title">Checkout</h1>
+
+  <div class="checkout-layout">
+    <div class="checkout-main">
+      <mat-stepper linear #stepper>
+        <!-- STEP 1: Delivery Address -->
+        <mat-step [stepControl]="addressForm" label="Delivery Address">
+          <form [formGroup]="addressForm">
+            <div class="step-content">
+              <h3>Select Delivery Address</h3>
+              <mat-radio-group formControlName="addressId" class="address-group">
+                <mat-card class="address-card" *ngFor="let addr of user?.addresses">
+                  <mat-radio-button [value]="addr._id">
+                    <strong>{{ addr.label }}</strong> — {{ addr.line1 }}, {{ addr.city }} - {{ addr.pincode }}
+                  </mat-radio-button>
+                </mat-card>
+              </mat-radio-group>
+              <p *ngIf="!user?.addresses?.length" class="text-muted">No saved addresses. Please add one in your profile.</p>
+              <div class="step-actions">
+                <button mat-raised-button color="primary" matStepperNext [disabled]="addressForm.invalid">Next</button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- STEP 2: Payment Method -->
+        <mat-step [stepControl]="paymentForm" label="Payment">
+          <form [formGroup]="paymentForm">
+            <div class="step-content">
+              <h3>Select Payment Method</h3>
+              <mat-radio-group formControlName="paymentMethod" class="payment-group">
+                <mat-card class="payment-card">
+                  <mat-radio-button value="cod">
+                    <span class="pay-icon">💵</span>
+                    <div>
+                      <strong>Cash on Delivery</strong>
+                      <p class="text-muted">Pay when your order arrives</p>
+                    </div>
+                  </mat-radio-button>
+                </mat-card>
+                <mat-card class="payment-card">
+                  <mat-radio-button value="upi">
+                    <span class="pay-icon">📱</span>
+                    <div>
+                      <strong>UPI Payment</strong>
+                      <p class="text-muted">Razorpay / PhonePe / Google Pay</p>
+                    </div>
+                  </mat-radio-button>
+                </mat-card>
+              </mat-radio-group>
+              <mat-form-field class="w-100 mt-2">
+                <mat-label>Special Instructions (optional)</mat-label>
+                <textarea matInput formControlName="specialInstructions" rows="2"></textarea>
+              </mat-form-field>
+              <div class="step-actions">
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" matStepperNext [disabled]="paymentForm.invalid">Review Order</button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+        <!-- STEP 3: Review & Place Order -->
+        <mat-step label="Review & Place">
+          <div class="step-content">
+            <h3>Review Your Order</h3>
+            <div class="review-items">
+              <div class="review-item" *ngFor="let item of cartItems">
+                <span>{{ item.product.name }} x{{ item.quantity }}</span>
+                <span>₹{{ item.product.price * item.quantity }}</span>
+              </div>
+            </div>
+            <mat-divider class="mt-1 mb-2"></mat-divider>
+            <div class="summary-row"><span>Total</span><strong>₹{{ total }}</strong></div>
+            <div class="step-actions">
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" [disabled]="loading" (click)="placeOrder()">{{ loading ? 'Placing Order...' : '🎉 Place Order' }}</button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+
+    <div class="order-summary card">
+      <h3>Order Summary</h3>
+      <mat-divider class="mt-1 mb-2"></mat-divider>
+      <div *ngFor="let item of cartItems" class="summary-item">
+        <span>{{ item.product.name }}</span>
+        <span>{{ item.quantity }} × ₹{{ item.product.price }}</span>
+      </div>
+      <mat-divider class="mt-1 mb-2"></mat-divider>
+      <div class="summary-row"><strong>Total</strong><strong>₹{{ total }}</strong></div>
+    </div>
+  </div>
+</div>

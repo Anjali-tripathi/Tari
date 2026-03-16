@@ -1,0 +1,77 @@
+<div class="page-container">
+  <h1 class="page-title">Manage Addresses</h1>
+  <div class="addresses-layout">
+    <div class="address-list">
+      <mat-card *ngFor="let a of user?.addresses">
+        <div class="address-row">
+          <div>
+            <strong>{{ a.label }}</strong>
+            <div class="text-muted">{{ a.line1 }}, {{ a.city }} - {{ a.pincode }}</div>
+          </div>
+          <div class="address-actions">
+            <button mat-button color="warn" (click)="removeAddress(a._id!)">Remove</button>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <div class="address-form card">
+      <h3>Add New Address</h3>
+      <form [formGroup]="form" (ngSubmit)="saveAddress()">
+        <mat-form-field class="w-100"><mat-label>Label</mat-label><input matInput formControlName="label"></mat-form-field>
+        <mat-form-field class="w-100"><mat-label>Address</mat-label><input matInput formControlName="line1"></mat-form-field>
+        <mat-form-field class="w-100"><mat-label>City</mat-label><input matInput formControlName="city"></mat-form-field>
+        <mat-form-field class="w-100"><mat-label>Pincode</mat-label><input matInput formControlName="pincode"></mat-form-field>
+        <div class="form-actions">
+          <button mat-button type="button" (click)="form.reset({ label: 'Home' })">Reset</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="saving || form.invalid">{{ saving ? 'Saving...' : 'Save Address' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="mt-2">
+      <div class="addresses-grid" *ngIf="user?.addresses?.length">
+        <mat-card class="address-card" *ngFor="let addr of user!.addresses">
+          <div class="addr-header">
+            <strong>{{ addr.label }}</strong>
+            <button mat-icon-button color="warn" (click)="removeAddress(addr._id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <p>{{ addr.line1 }}</p>
+          <p class="text-muted">{{ addr.city }} - {{ addr.pincode }}</p>
+        </mat-card>
+      </div>
+      <p *ngIf="!user?.addresses?.length" class="text-muted mt-2">No addresses saved yet.</p>
+
+      <mat-expansion-panel class="mt-2">
+        <mat-expansion-panel-header>
+          <mat-panel-title>+ Add New Address</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="form" class="address-form">
+          <mat-form-field class="w-100">
+            <mat-label>Label (Home / Work / Other)</mat-label>
+            <input matInput formControlName="label"  placeholder="Enter your home/work/other">
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-label>Address Line 1</mat-label>
+            <input matInput formControlName="line1" placeholder="Enter you address">
+          </mat-form-field>
+          <div class="form-row">
+            <mat-form-field>
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" placeholder="enter city name">
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Pincode</mat-label>
+              <input matInput formControlName="pincode" placeholder="enter 6-digit pincode">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" [disabled]="form.invalid || saving" (click)="saveAddress()">
+            {{ saving ? 'Saving...' : 'Save Address' }}
+          </button>
+        </form>
+      </mat-expansion-panel>
+      
+    </div>
